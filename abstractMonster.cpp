@@ -83,7 +83,7 @@ void AbstractMonster::unserialize(string input)
 
 ostream& operator<< (ostream& os, const  AbstractMonster& rhs)
 {
-	cout << "Player: " << rhs.name << endl;
+	cout << "Monster: " << rhs.name << endl;
 	cout << "HP: " << rhs.getHP() << "/" << rhs.max_hp << endl;
 	cout << "MP: " << rhs.getMP() << "/" << rhs.max_mp << endl;
 	cout << "Exp: " << rhs.exp << endl;

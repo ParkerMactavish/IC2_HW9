@@ -102,6 +102,21 @@ bool Battle::nextActor()
 				}
 			}			
 		}
+		if (this->getMonsterCount(1) < this->getMonsterCount())
+		{
+			Character* tmpActionList = new Character[this->getPlayerCount() + this->getMonsterCount(1)];
+			int tmpIndex = 0;
+			for (int i = 0; i < (this->getMonsterCount() + this->getPlayerCount()); i++)
+			{
+				if (this->ActionList[i].alive)
+				{
+					tmpActionList[tmpIndex] = this->ActionList[i];
+					tmpIndex++;
+				}
+			}
+			delete this->ActionList;
+			this->ActionList = tmpActionList;
+		}
 		currentCharIndex++;
 		if (this->currentCharIndex == this->monsterNum + this->playerNum)
 		{
@@ -179,10 +194,10 @@ ostream& operator<<(ostream& os, Battle& B)
 		<< "Turn/Limit: " << B.getTurnCount() << "/" << B.getTurnLimit() << endl
 		<< "Current Chracter: " << endl << endl;
 	for (int i = 0; i < B.playerNum; i++) cout << *static_cast<GeneralPlayer*>(B.getPlayers()[i].instance) << endl;
-	//for (int i = 0; i < B.monsterNum; i++) cout << *static_cast<AbstractMonster*>(B.getMonsters()[i].instance) << endl;	
+	//cout << *(static_cast<GoblinMonster*>(B.getMonsters()[0].instance)) << endl;
+	//for (int i = 0; i < B.monsterNum; i++)  cout << *(static_cast<AbstractMonster*>(B.getMonsters()[0].instance)) << endl;
 	for (int i = 0; i < B.monsterNum; i++)
 	{
-		cout << "i:" << i << endl;
 		if (static_cast<AbstractMonster*>(B.getMonsters()[i].instance)->name == "Goblin")cout << *static_cast<GoblinMonster*>(B.getMonsters()[i].instance)<<endl;
 		else if (static_cast<AbstractMonster*>(B.getMonsters()[i].instance)->name == "JW the Boss")cout << *static_cast<JWMonster*>(B.getMonsters()[i].instance)<<endl;
 		else if (static_cast<AbstractMonster*>(B.getMonsters()[i].instance)->name == "Zombie")cout << *static_cast<ZombieMonster*>(B.getMonsters()[i].instance)<<endl;
